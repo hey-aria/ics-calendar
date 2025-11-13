@@ -1,0 +1,19 @@
+.cal {
+    display: flex;
+    flex-direction: column;
+}
+
+.week {
+    display: flex;
+    flex-direction: row;
+    background: whitesmoke;
+}
+
+.day {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
