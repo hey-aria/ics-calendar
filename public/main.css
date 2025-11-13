@@ -1,19 +1,52 @@
-.cal {
+body {
+    background: black;
+    color: whitesmoke;
+    font-family: "Stack Sans Notch", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+#month-title {
+    color: white;
+}
+
+.btn {
+    background: transparent;
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 25px;
+    margin: 10px;
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
+}
+
+#btn-div {
+    display: flex;
+    justify-content: left;
+    margin: 7px 15px;
+}
+
+#cal {
     display: flex;
     flex-direction: column;
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
+    margin: 7px;
 }
 
 .week {
     display: flex;
     flex-direction: row;
-    background: whitesmoke;
 }
 
 .day {
-    width: 200px;
-    height: 200px;
-    border: 1px solid black;
+    width: 250px;
+    height: 100px;
+    border: 1px #141414 black;
     border-radius: 10px;
     margin: 10px;
     padding: 10px;
+    font-size: 12px;
+    background: #0f0f0f;
 }

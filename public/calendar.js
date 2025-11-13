@@ -21,18 +21,16 @@
 
     const calDiv = document.createElement('div');
     calDiv.id = "cal";
-    main.appendChild(calDiv);
 
     // add buttons to navigate through the months 
     const parent = document.getElementById("main");
 
     const buttonDiv = document.createElement('div');
-    const cal = document.getElementById("cal");
     const leftButton = document.createElement('button');
-    leftButton.innerText = "<";
+    leftButton.innerText = "Prior";
     leftButton.classList.add("btn");
     leftButton.addEventListener('click', (e) => {
-        e.preventDefault();
+        const cal = document.getElementById("cal");
         if (!monthMatrix?.[currentMonth - 1]) { return }
         else {
             renderMonth(cal, currentMonth - 1, monthMatrix);
@@ -41,10 +39,10 @@
     });
 
     const rightButton = document.createElement('button');
-    rightButton.innerText = ">";
+    rightButton.innerText = "Next";
     rightButton.classList.add("btn");
     rightButton.addEventListener('click', (e) => {
-        e.preventDefault();
+        const cal = document.getElementById("cal");
         if (!monthMatrix?.[currentMonth + 1]) { return }
         else {
             renderMonth(cal, currentMonth, monthMatrix);
@@ -53,7 +51,9 @@
     });
     buttonDiv.appendChild(leftButton);
     buttonDiv.appendChild(rightButton);
+    buttonDiv.id = "btn-div";
     parent.appendChild(buttonDiv);
+    main.appendChild(calDiv);
 
     // default render
     renderMonth(calDiv, currentMonth, monthMatrix);
@@ -67,18 +67,30 @@
  * @param {Array} calendar - the calendar obj 
  */
 function renderMonth(holder, renderMonth, calendar) {
+    const months = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+
+    // cleanup
     while (holder.firstChild) {
         holder.removeChild(holder.lastChild);
     }
+    const buttonDiv = document.getElementById('btn-div');
+    const oldTitle = document.getElementById("month-title");
+    if (buttonDiv && oldTitle) {
+        buttonDiv.removeChild(oldTitle);
+    }
+
 
     // build new calendar 
     const [[key, weeks]] = Object.entries(calendar[renderMonth]);
+    const [year, month] = key.split('~');
 
     const title = document.createElement('h1');
-    title.innerText = key;
+    title.innerText = `Rag Tag Calendar: ${months[month - 1]} ${year}`;
+    title.id = "month-title";
 
     // add title  
-    holder.appendChild(title);
+    buttonDiv.appendChild(title);
 
     // add weeks and days
     for (const w of weeks) {
