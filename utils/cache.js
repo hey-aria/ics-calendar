@@ -47,7 +47,7 @@ export async function update_cache() {
     try {
         const [icsData, err] = await getICS();
         if (err) {
-            return err;
+            return [null, null, null, err];
         }
 
         const minData = icsData.slice(0, (icsData.length / 2));
