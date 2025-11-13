@@ -50,25 +50,27 @@ export async function update_cache() {
             return err;
         }
 
-        const minData = JSON.stringify(icsData.slice(0, (icsData.length / 2)));
+        const minData = icsData.slice(0, (icsData.length / 2));
         const now = new Date().getTime();
-        const upcomingData = JSON.stringify(icsData.reduce((a, cv) => {
+        const upcomingData = icsData.reduce((a, cv) => {
             const time = new Date(cv.dtstart).getTime();
             if (now < time) {
                 a.push(cv);
             }
             return a;
-        }, []));
+        }, []);
 
         // Expiry default at 12hrs, we can change that.
         const expiry = new Date(now + (12 * 60 * 60 * 1000)).getTime();
 
         fs.writeFileSync(CACHE_FILE, JSON.stringify(icsData));
-        fs.writeFileSync(CACHE_MIN_FILE, minData);
-        fs.writeFileSync(CACHE_UPCOMING_FILE, upcomingData);
+        fs.writeFileSync(CACHE_MIN_FILE, JSON.stringify(minData));
+        fs.writeFileSync(CACHE_UPCOMING_FILE, JSON.stringify(upcomingData));
         fs.writeFileSync(CACHE_EXPIRES, expiry.toString());
+
+        return [icsData, minData, upcomingData, null];
     } catch (e) {
-        return e;
+        return [null, null, null, e];
     }
 }
 
