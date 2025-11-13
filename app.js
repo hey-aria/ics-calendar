@@ -65,16 +65,6 @@ app.get("/get-ics/:type", async (req, res) => {
     }
 });
 
-/*
-app.get('/users/:userId/posts/:postId', (req, res) => {
-  // Access route parameters
-  const userId = req.params.userId;
-  const postId = req.params.postId;
-
-  res.send(`User ID: ${userId}, Post ID: ${postId}`);
-});
-*/
-
 (async function () {
     // init cache dir and preload recent data
     const err = await init_cache();
